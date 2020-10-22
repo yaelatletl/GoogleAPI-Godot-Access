@@ -20,6 +20,10 @@ run/main_scene="res://Main.tscn"
 run/low_processor_mode=true
 config/icon="res://icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "calendar_button" )
+
 [locale]
 
 locale_filter=[ 0, [ "es" ] ]
