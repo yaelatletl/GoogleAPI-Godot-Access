@@ -1,16 +1,28 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/calendar_button/calendar_script.gd" type="Script" id=1]
 [ext_resource path="res://addons/calendar_button/btn_img/btn_32x32_04.png" type="Texture" id=2]
 [ext_resource path="res://addons/calendar_button/btn_img/btn_32x32_03.png" type="Texture" id=3]
 
+[sub_resource type="GDScript" id=1]
+script/source = "extends ConfirmationDialog
+
+signal request_new_point(point_info)
+
+var point_info : Dictionary = {}
+
+func _on_ConfirmationDialog_confirmed() -> void:
+	point_info[\"direccion\"] = \"Esta es una direccion de prueba\"
+	emit_signal(\"request_new_point\", point_info)
+"
+
 [node name="ConfirmationDialog" type="ConfirmationDialog"]
-visible = true
 margin_left = 4.0
 margin_top = 19.0
 margin_right = 371.0
 margin_bottom = 277.0
 window_title = "Por favor, Confirma..."
+script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -169,3 +181,4 @@ texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 2 )
 script = ExtResource( 1 )
 language = "Spanish"
+[connection signal="confirmed" from="." to="." method="_on_ConfirmationDialog_confirmed"]
