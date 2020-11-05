@@ -12,11 +12,12 @@ signal request_new_point(point_info)
 var point_info : Dictionary = {}
 
 func _on_ConfirmationDialog_confirmed() -> void:
-	point_info[\"direccion\"] = \"Esta es una direccion de prueba\"
+	point_info[\"direccion\"] = $HBoxContainer2/Valores/Direccion.text
 	emit_signal(\"request_new_point\", point_info)
 "
 
 [node name="ConfirmationDialog" type="ConfirmationDialog"]
+visible = true
 margin_left = 4.0
 margin_top = 19.0
 margin_right = 371.0
@@ -42,7 +43,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2"]
 margin_right = 173.0
-margin_bottom = 216.0
+margin_bottom = 214.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -54,9 +55,9 @@ margin_right = 173.0
 margin_bottom = 4.0
 
 [node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer"]
-margin_top = 7.0
+margin_top = 8.0
 margin_right = 173.0
-margin_bottom = 37.0
+margin_bottom = 38.0
 rect_min_size = Vector2( 0, 30 )
 text = "Nombre del Cliente"
 valign = 1
@@ -67,9 +68,9 @@ margin_right = 173.0
 margin_bottom = 46.0
 
 [node name="Label2" type="Label" parent="HBoxContainer2/VBoxContainer"]
-margin_top = 49.0
+margin_top = 50.0
 margin_right = 173.0
-margin_bottom = 79.0
+margin_bottom = 80.0
 rect_min_size = Vector2( 0, 30 )
 text = "Dirección"
 valign = 1
@@ -80,9 +81,9 @@ margin_right = 173.0
 margin_bottom = 88.0
 
 [node name="Label3" type="Label" parent="HBoxContainer2/VBoxContainer"]
-margin_top = 91.0
+margin_top = 92.0
 margin_right = 173.0
-margin_bottom = 121.0
+margin_bottom = 122.0
 rect_min_size = Vector2( 0, 30 )
 text = "Cantidad de Producto"
 valign = 1
@@ -93,9 +94,9 @@ margin_right = 173.0
 margin_bottom = 130.0
 
 [node name="Label4" type="Label" parent="HBoxContainer2/VBoxContainer"]
-margin_top = 133.0
+margin_top = 134.0
 margin_right = 173.0
-margin_bottom = 163.0
+margin_bottom = 164.0
 rect_min_size = Vector2( 0, 30 )
 text = "Forma de Pago"
 valign = 1
@@ -106,9 +107,9 @@ margin_right = 173.0
 margin_bottom = 172.0
 
 [node name="Label5" type="Label" parent="HBoxContainer2/VBoxContainer"]
-margin_top = 175.0
+margin_top = 176.0
 margin_right = 173.0
-margin_bottom = 205.0
+margin_bottom = 206.0
 rect_min_size = Vector2( 0, 30 )
 text = "Fecha de Entrega"
 valign = 1
@@ -118,20 +119,20 @@ margin_top = 210.0
 margin_right = 173.0
 margin_bottom = 214.0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer2"]
+[node name="Valores" type="VBoxContainer" parent="HBoxContainer2"]
 margin_left = 177.0
 margin_right = 351.0
-margin_bottom = 216.0
+margin_bottom = 214.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/VBoxContainer2"]
+[node name="Cliente" type="LineEdit" parent="HBoxContainer2/Valores"]
 margin_right = 174.0
 margin_bottom = 39.0
 rect_min_size = Vector2( 0, 39 )
 placeholder_text = "Nombre del cliente"
 
-[node name="TextEdit" type="TextEdit" parent="HBoxContainer2/VBoxContainer2"]
+[node name="Direccion" type="TextEdit" parent="HBoxContainer2/Valores"]
 margin_top = 43.0
 margin_right = 174.0
 margin_bottom = 82.0
@@ -141,13 +142,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SpinBox" type="SpinBox" parent="HBoxContainer2/VBoxContainer2"]
+[node name="Cantidad" type="SpinBox" parent="HBoxContainer2/Valores"]
 margin_top = 86.0
 margin_right = 174.0
 margin_bottom = 125.0
 rect_min_size = Vector2( 0, 39 )
 
-[node name="MenuButton" type="MenuButton" parent="HBoxContainer2/VBoxContainer2"]
+[node name="Pago" type="MenuButton" parent="HBoxContainer2/Valores"]
 margin_top = 129.0
 margin_right = 174.0
 margin_bottom = 168.0
@@ -159,20 +160,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2/Valores"]
 margin_top = 172.0
 margin_right = 174.0
 margin_bottom = 211.0
 rect_min_size = Vector2( 0, 39 )
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/VBoxContainer2/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/Valores/HBoxContainer"]
 margin_top = 7.0
 margin_right = 138.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="CalendarButton" type="TextureButton" parent="HBoxContainer2/VBoxContainer2/HBoxContainer"]
+[node name="CalendarButton" type="TextureButton" parent="HBoxContainer2/Valores/HBoxContainer"]
 margin_left = 142.0
 margin_right = 174.0
 margin_bottom = 39.0

@@ -119,4 +119,6 @@ margin_bottom = 512.0
 rect_min_size = Vector2( 512, 512 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Directions" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="HSplitContainer/TabContainer/Tabs/VBoxContainer/An_Punto" to="." method="_on_Punto_pressed"]
