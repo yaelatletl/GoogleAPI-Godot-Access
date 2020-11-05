@@ -105,13 +105,18 @@ margin_bottom = 554.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ViewportContainer" type="ViewportContainer" parent="HSplitContainer"]
+[node name="ViewportContainer" type="ScrollContainer" parent="HSplitContainer"]
 margin_left = 410.0
 margin_right = 1010.0
 margin_bottom = 586.0
 rect_min_size = Vector2( 600, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="HSplitContainer/ViewportContainer"]
+margin_right = 512.0
+margin_bottom = 512.0
+rect_min_size = Vector2( 512, 512 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="HSplitContainer/TabContainer/Tabs/VBoxContainer/An_Punto" to="." method="_on_Punto_pressed"]
