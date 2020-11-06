@@ -45,18 +45,27 @@ func _image_request_completed(result, response_code, headers, body):
 	tex.create_from_image(image)
 	$HSplitContainer/ViewportContainer/TextureRect.texture = tex
 
-func _directions_request_completed(result, response_code, headers, body):
-	route = body.get_string_from_utf8()
+func _directions_request_completed(result, response_code, headers, body : PoolByteArray):
+	var json : Dictionary = JSON.parse(body.get_string_from_utf8()).result
+	var ret = json.get("routes")[0].get("overview_polyline").get("points")
+	route = "enc:"+ret
+	make_request()
+	print(route)
 
 func make_request():
 	var base : String = "https://maps.googleapis.com/maps/api/staticmap?center=Centro+Historico,Puebla,PUE&zoom=15&size=512x512"
-	if points.size() > 0:
+	print("RUTA!", route)
+	if route.begins_with("enc:"):
+		base = base + "&path=color:0x0000ff|weight:5|"+route
+	elif points.size() > 0:
 		base = base + "&path=color:0x0000ff|weight:5|"
 		for point in points:
 			base = base + name_to_API(point) + "|"
 		base = base.trim_suffix("|")
 		# Perform the HTTP request. The URL below returns a PNG image as of writing.
+	
 	print(base+"&key=AIzaSyDQtnZ10PrsZ9mz459NhSxdtqvjVV40G9o")
+	
 	var error = http.request(base+"&key="+ API_KEY)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
@@ -70,3 +79,7 @@ func request_directions(from, to):
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 
+
+
+func _on_EnRoutar_pressed():
+	request_directions(points.front(), points.back())

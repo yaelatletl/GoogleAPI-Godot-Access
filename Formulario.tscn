@@ -17,7 +17,6 @@ func _on_ConfirmationDialog_confirmed() -> void:
 "
 
 [node name="ConfirmationDialog" type="ConfirmationDialog"]
-visible = true
 margin_left = 4.0
 margin_top = 19.0
 margin_right = 371.0

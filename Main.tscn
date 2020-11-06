@@ -61,21 +61,27 @@ __meta__ = {
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
 margin_top = 18.0
 margin_right = 390.0
-margin_bottom = 546.0
+margin_bottom = 522.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ItemList" type="VBoxContainer" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer/ScrollContainer"]
 margin_right = 390.0
-margin_bottom = 528.0
+margin_bottom = 504.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="An_Punto" type="Button" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
+margin_top = 526.0
+margin_right = 390.0
+margin_bottom = 546.0
+text = "Añadir Punto"
+
+[node name="EnRoutar" type="Button" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
 margin_top = 550.0
 margin_right = 390.0
 margin_bottom = 570.0
-text = "Añadir Punto"
+text = "Generar Ruta"
 
 [node name="Control" type="Control" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
 margin_top = 574.0
@@ -122,3 +128,4 @@ rect_min_size = Vector2( 512, 512 )
 
 [node name="Directions" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="HSplitContainer/TabContainer/Tabs/VBoxContainer/An_Punto" to="." method="_on_Punto_pressed"]
+[connection signal="pressed" from="HSplitContainer/TabContainer/Tabs/VBoxContainer/EnRoutar" to="." method="_on_EnRoutar_pressed"]
