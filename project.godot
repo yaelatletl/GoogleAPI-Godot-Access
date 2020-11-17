@@ -8,17 +8,28 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "GoogleMapsStaticAPI",
+"language": "GDScript",
+"path": "res://addons/google.maps/static_api.gd"
+}, {
+"base": "Node",
+"class": "JsLocations",
+"language": "GDScript",
+"path": "res://addons/google.maps/js_backend.gd"
+} ]
 _global_script_class_icons={
-
+"GoogleMapsStaticAPI": "",
+"JsLocations": ""
 }
 
 [application]
 
 config/name="MapRouter"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://interface/Main.tscn"
 run/low_processor_mode=true
-config/icon="res://icon.png"
+config/icon="res://assets/icon.png"
 
 [editor_plugins]
 

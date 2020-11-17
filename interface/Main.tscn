@@ -1,0 +1,174 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://interface/Formulario.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/themes/InteractsMenu.tres" type="Theme" id=3]
+[ext_resource path="res://addons/google.maps/static_api.gd" type="Script" id=4]
+[ext_resource path="res://interface/Loading.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/icon_add.svg" type="Texture" id=6]
+[ext_resource path="res://assets/icon_reload.svg" type="Texture" id=7]
+
+[node name="Control" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.324402
+margin_top = 2.70221
+margin_right = -0.324402
+margin_bottom = 2.70221
+theme = ExtResource( 3 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1022.0
+margin_bottom = 598.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="HSplitContainer"]
+margin_right = 258.0
+margin_bottom = 596.0
+rect_min_size = Vector2( 250, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tabs_visible = false
+
+[node name="Tabs" type="Tabs" parent="HSplitContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/TabContainer/Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
+margin_right = 258.0
+margin_bottom = 18.0
+text = "Puntos de entrega"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
+margin_top = 22.0
+margin_right = 258.0
+margin_bottom = 489.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemList" type="VBoxContainer" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer/ScrollContainer"]
+margin_right = 258.0
+margin_bottom = 467.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
+margin_top = 493.0
+margin_right = 258.0
+margin_bottom = 513.0
+rect_min_size = Vector2( 10, 20 )
+
+[node name="Control4" type="Control" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer/HBoxContainer"]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="An_Punto" type="TextureButton" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer/HBoxContainer"]
+margin_left = 24.0
+margin_right = 115.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 6 )
+expand = true
+stretch_mode = 3
+
+[node name="Control5" type="Control" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer/HBoxContainer"]
+margin_left = 119.0
+margin_right = 139.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="EnRoutar" type="TextureButton" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer/HBoxContainer"]
+margin_left = 143.0
+margin_right = 234.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 3
+
+[node name="Control3" type="Control" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer/HBoxContainer"]
+margin_left = 238.0
+margin_right = 258.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="Control" type="Control" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
+margin_top = 517.0
+margin_right = 258.0
+margin_bottom = 517.0
+
+[node name="ConfirmationDialog" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer/Control" instance=ExtResource( 2 )]
+margin_left = 554.0
+margin_top = 201.281
+margin_right = 887.0
+margin_bottom = 457.281
+
+[node name="Control2" type="Control" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
+margin_top = 521.0
+margin_right = 258.0
+margin_bottom = 596.311
+rect_min_size = Vector2( 0, 75.311 )
+
+[node name="Tabs2" type="Tabs" parent="HSplitContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HSplitContainer/TabContainer/Tabs2"]
+margin_left = -4.0
+margin_top = -32.0
+margin_right = 394.0
+margin_bottom = 554.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ViewportContainer" type="ScrollContainer" parent="HSplitContainer"]
+margin_left = 270.0
+margin_right = 1020.0
+margin_bottom = 596.0
+rect_min_size = Vector2( 750, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="HSplitContainer/ViewportContainer"]
+margin_right = 512.0
+margin_bottom = 512.0
+rect_min_size = Vector2( 512, 512 )
+
+[node name="GoogleStaticAPI" type="Node" parent="."]
+script = ExtResource( 4 )
+API_KEY = "AIzaSyDQtnZ10PrsZ9mz459NhSxdtqvjVV40G9o"
+line_color = Color( 0.0627451, 0.921569, 0.458824, 1 )
+size_id = 0
+
+[node name="Loading" parent="." instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1022.0
+margin_bottom = 598.0
+[connection signal="pressed" from="HSplitContainer/TabContainer/Tabs/VBoxContainer/HBoxContainer/An_Punto" to="." method="_on_Punto_pressed"]
+[connection signal="pressed" from="HSplitContainer/TabContainer/Tabs/VBoxContainer/HBoxContainer/EnRoutar" to="." method="_on_EnRoutar_pressed"]

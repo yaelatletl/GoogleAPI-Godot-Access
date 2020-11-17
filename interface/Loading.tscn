@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/themes/InteractsMenu.tres" type="Theme" id=1]
+[ext_resource path="res://assets/icon_128.png" type="Texture" id=2]
+[ext_resource path="res://assets/interface/Fonts/ExtraInfoDisplayTitledjv_bold.tres" type="DynamicFont" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+onready var progress : ProgressBar = $PanelContainer/CenterContainer/VBoxContainer/ProgressBar
+
+func add_progress(add : int):
+	progress.value += add
+	if progress.value == 100:
+		yield(get_tree().create_timer(2), \"timeout\")
+		queue_free()
+"
+
+[node name="Loading" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1022.0
+margin_bottom = 598.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer"]
+margin_left = 260.0
+margin_top = 190.0
+margin_right = 760.0
+margin_bottom = 406.0
+
+[node name="icon_64" type="TextureRect" parent="PanelContainer/CenterContainer/VBoxContainer"]
+margin_right = 500.0
+margin_bottom = 128.0
+texture = ExtResource( 2 )
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer"]
+margin_top = 132.0
+margin_right = 500.0
+margin_bottom = 163.0
+custom_fonts/font = ExtResource( 3 )
+text = "MapRouter"
+align = 1
+
+[node name="Control" type="Control" parent="PanelContainer/CenterContainer/VBoxContainer"]
+margin_top = 167.0
+margin_right = 500.0
+margin_bottom = 198.431
+rect_min_size = Vector2( 0, 31.431 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/CenterContainer/VBoxContainer"]
+margin_top = 202.0
+margin_right = 500.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 500, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

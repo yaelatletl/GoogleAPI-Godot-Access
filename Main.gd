@@ -1,17 +1,17 @@
 extends PanelContainer
 const API_KEY = "AIzaSyDQtnZ10PrsZ9mz459NhSxdtqvjVV40G9o"
 onready var confirm_dialog = $HSplitContainer/TabContainer/Tabs/VBoxContainer/Control/ConfirmationDialog
-onready var icon = preload("res://location_icon.png")
-onready var http = $HTTPRequest
-onready var dircs = $Directions
+onready var icon = preload("res://assets/icon_64.png")
+onready var del_icon = preload("res://assets/icon_remove.svg")
+onready var static_api = $GoogleStaticAPI
+onready var list = $HSplitContainer/TabContainer/Tabs/VBoxContainer/ScrollContainer/ItemList
 
-var points : Array = []
-var route : String = ""
+
 func _ready():
+	static_api.connect("texture_updated", self, "_on_texture_updated")
+	static_api.connect("center_loaded", self, "_on_center_loaded")
 	confirm_dialog.connect("request_new_point", self, "create_item")
-	http.connect("request_completed", self, "_image_request_completed")
-	dircs.connect("request_completed", self, "_directions_request_completed")
-	make_request()
+	static_api.make_request()
 
 func name_to_API(point_name : String):
 	point_name = point_name.replace(" ", "+")
@@ -24,62 +24,46 @@ func _on_Punto_pressed():
 func create_item(point_info):
 	var panel = PanelContainer.new()
 	var box = HBoxContainer.new()
+	var box2 = VBoxContainer.new()
 	var texx = TextureButton.new()
-	var label = Label.new()
+	var del = TextureButton.new()
+	var dir_label = Label.new()
+	var cli_label = Label.new()
+	var cant_label = Label.new()
 	texx.texture_normal = icon
-	label.text = point_info.get("direccion")
-	points.append(point_info.get("direccion"))
+	del.texture_normal = del_icon
+	del.expand = true
+	del.stretch_mode = TextureButton.STRETCH_KEEP_CENTERED
+	del.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	del.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	dir_label.text = point_info.get("direccion")
+	cli_label.text = "Destinatario: " + point_info.get("cliente")
+	cant_label.text = "Cantidad: " + str(point_info.get("cantidad"))
+	static_api.route_points.append(point_info.get("direccion"))
 	panel.add_child(box)
 	box.add_child(texx)
-	box.add_child(label)
-	$HSplitContainer/TabContainer/Tabs/VBoxContainer/ScrollContainer/ItemList.add_child(panel)
-	make_request()
+	box.add_child(box2)
+	box2.add_child(dir_label)
+	box2.add_child(cli_label)
+	box2.add_child(cant_label)
+	box.add_child(del)
+	del.connect("pressed", self, "_on_item_del_pressed", [panel])
+	list.add_child(panel)
+	static_api.make_request()
 
-func _image_request_completed(result, response_code, headers, body):
-	var image = Image.new()
-	var error = image.load_png_from_buffer(body)
-	if error != OK:
-		push_error("Couldn't load the image.")
-		return
-	var tex = ImageTexture.new()
-	tex.create_from_image(image)
-	$HSplitContainer/ViewportContainer/TextureRect.texture = tex
+func _on_center_loaded():
+	if get_node_or_null("Loading") != null:
+		get_node("Loading").add_progress(50)
 
-func _directions_request_completed(result, response_code, headers, body : PoolByteArray):
-	var json : Dictionary = JSON.parse(body.get_string_from_utf8()).result
-	var ret = json.get("routes")[0].get("overview_polyline").get("points")
-	route = "enc:"+ret
-	make_request()
-	print(route)
-
-func make_request():
-	var base : String = "https://maps.googleapis.com/maps/api/staticmap?center=Centro+Historico,Puebla,PUE&zoom=15&size=512x512"
-	print("RUTA!", route)
-	if route.begins_with("enc:"):
-		base = base + "&path=color:0x0000ff|weight:5|"+route
-	elif points.size() > 0:
-		base = base + "&path=color:0x0000ff|weight:5|"
-		for point in points:
-			base = base + name_to_API(point) + "|"
-		base = base.trim_suffix("|")
-		# Perform the HTTP request. The URL below returns a PNG image as of writing.
-	
-	print(base+"&key=AIzaSyDQtnZ10PrsZ9mz459NhSxdtqvjVV40G9o")
-	
-	var error = http.request(base+"&key="+ API_KEY)
-	if error != OK:
-		push_error("An error occurred in the HTTP request.")
-
-func request_directions(from, to):
-	var base = "https://maps.googleapis.com/maps/api/directions/json?origin="
-	base = base + name_to_API(from)
-	base = base + "&destination=" + name_to_API(to)
-	base = base + "mode=driving&key=" + API_KEY
-	var error = dircs.request(base)
-	if error != OK:
-		push_error("An error occurred in the HTTP request.")
-
-
+func _on_texture_updated(texture : ImageTexture):
+	$HSplitContainer/ViewportContainer/TextureRect.texture = texture
+	if get_node_or_null("Loading") != null:
+		get_node("Loading").add_progress(50)
+		if static_api.override_center:
+			get_node("Loading").add_progress(50)
 
 func _on_EnRoutar_pressed():
-	request_directions(points.front(), points.back())
+	static_api.request_directions(static_api.route_points.front(), static_api.route_points.back())
+
+func _on_item_del_pressed(node):
+	node.queue_free()
