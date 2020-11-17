@@ -18,6 +18,7 @@ enum SIZES{
 signal texture_updated(texture)
 signal center_loaded()
 
+#Settings
 export(String) var API_KEY : String = ""
 export(Color, RGB) var line_color : Color = 0x0000ff
 export(SIZES) var size_id : int = SIZES.x512
@@ -25,12 +26,14 @@ export(int, 1, 8) var road_width : int = 5
 export(bool) var override_center : bool = false
 export(String) var map_center_override : String = ""
 
-
+#Node variables
 onready var http = HTTPRequest.new()
 onready var dircs = HTTPRequest.new()
 onready var JsLoc = JsLocations.new()
 onready var texture_output = ImageTexture.new()
 
+#Drawing variables
+var zoom : int = 15
 var map_center : String = "Centro+Historico,Puebla,PUE"
 var route_points : Array = []
 var polyline_encoded : String = ""
@@ -46,7 +49,17 @@ func _ready():
 		JsLoc.get_user_position()
 
 
-func name_to_API(point_name : String):
+func zoomin():
+	if zoom < 20:
+		zoom += 1
+		make_request()
+
+func zoomout():
+	if zoom > 1:
+		zoom -= 1
+		make_request()
+
+func name_to_API(point_name : String) -> String:
 	point_name = point_name.replace(" ", "+")
 	point_name = point_name.trim_suffix("+")
 	return point_name
@@ -68,7 +81,7 @@ func _directions_request_completed(result, response_code, headers, body : PoolBy
 	polyline_encoded = "enc:"+ret
 
 func make_request():
-	var base : String = "https://maps.googleapis.com/maps/api/staticmap?center="+map_center+"&zoom=15&size="+sizes[size_id]+"&scale=2"
+	var base : String = "https://maps.googleapis.com/maps/api/staticmap?center="+map_center+"&zoom="+str(zoom)+"&size="+sizes[size_id]+"&scale=2"
 	base = base + "&path=color:0x"+line_color.to_html(false)+"|weight:"+str(road_width)+"|"
 	print(line_color.to_html(false))
 	

@@ -5,7 +5,7 @@ onready var icon = preload("res://assets/icon_64.png")
 onready var del_icon = preload("res://assets/icon_remove.svg")
 onready var static_api = $GoogleStaticAPI
 onready var list = $HSplitContainer/TabContainer/Tabs/VBoxContainer/ScrollContainer/ItemList
-
+onready var viewport = $HSplitContainer/VBoxContainer/ViewportContainer/TextureRect
 
 func _ready():
 	static_api.connect("texture_updated", self, "_on_texture_updated")
@@ -56,7 +56,7 @@ func _on_center_loaded():
 		get_node("Loading").add_progress(50)
 
 func _on_texture_updated(texture : ImageTexture):
-	$HSplitContainer/ViewportContainer/TextureRect.texture = texture
+	viewport.texture = texture
 	if get_node_or_null("Loading") != null:
 		get_node("Loading").add_progress(50)
 		if static_api.override_center:
@@ -67,3 +67,10 @@ func _on_EnRoutar_pressed():
 
 func _on_item_del_pressed(node):
 	node.queue_free()
+
+
+func _on_zoomout_pressed():
+	static_api.zoomout()
+
+func _on_zoomin_pressed():
+	static_api.zoomin()

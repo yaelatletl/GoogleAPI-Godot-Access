@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://interface/Formulario.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://interface/Loading.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/icon_add.svg" type="Texture" id=6]
 [ext_resource path="res://assets/icon_reload.svg" type="Texture" id=7]
+[ext_resource path="res://assets/interface/Fonts/ExtraInfoDisplayTitledjv_bold.tres" type="DynamicFont" id=8]
 
 [node name="Control" type="PanelContainer"]
 anchor_right = 1.0
@@ -53,7 +54,8 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
 margin_right = 258.0
-margin_bottom = 18.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 8 )
 text = "Puntos de entrega"
 align = 1
 __meta__ = {
@@ -61,7 +63,7 @@ __meta__ = {
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer"]
-margin_top = 22.0
+margin_top = 35.0
 margin_right = 258.0
 margin_bottom = 489.0
 size_flags_horizontal = 3
@@ -69,7 +71,7 @@ size_flags_vertical = 3
 
 [node name="ItemList" type="VBoxContainer" parent="HSplitContainer/TabContainer/Tabs/VBoxContainer/ScrollContainer"]
 margin_right = 258.0
-margin_bottom = 467.0
+margin_bottom = 454.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -132,7 +134,6 @@ margin_bottom = 596.311
 rect_min_size = Vector2( 0, 75.311 )
 
 [node name="Tabs2" type="Tabs" parent="HSplitContainer/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -144,18 +145,73 @@ margin_bottom = 554.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ViewportContainer" type="ScrollContainer" parent="HSplitContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
 margin_left = 270.0
 margin_right = 1020.0
 margin_bottom = 596.0
+
+[node name="ViewportContainer" type="ScrollContainer" parent="HSplitContainer/VBoxContainer"]
+margin_right = 750.0
+margin_bottom = 534.0
 rect_min_size = Vector2( 750, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TextureRect" type="TextureRect" parent="HSplitContainer/ViewportContainer"]
+[node name="TextureRect" type="TextureRect" parent="HSplitContainer/VBoxContainer/ViewportContainer"]
 margin_right = 512.0
 margin_bottom = 512.0
 rect_min_size = Vector2( 512, 512 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer"]
+margin_top = 538.0
+margin_right = 750.0
+margin_bottom = 596.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control3" type="Control" parent="HSplitContainer/VBoxContainer/VBoxContainer"]
+margin_right = 750.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/VBoxContainer/VBoxContainer"]
+margin_top = 14.0
+margin_right = 750.0
+margin_bottom = 44.0
+
+[node name="Control4" type="Control" parent="HSplitContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="zoomin" type="Button" parent="HSplitContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 14.0
+margin_right = 44.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+custom_fonts/font = ExtResource( 8 )
+text = "+"
+
+[node name="Control5" type="Control" parent="HSplitContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 48.0
+margin_right = 58.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="zoomout" type="Button" parent="HSplitContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 62.0
+margin_right = 92.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+custom_fonts/font = ExtResource( 8 )
+text = "-"
+
+[node name="Control4" type="Control" parent="HSplitContainer/VBoxContainer/VBoxContainer"]
+margin_top = 48.0
+margin_right = 750.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 0, 10 )
 
 [node name="GoogleStaticAPI" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -164,6 +220,7 @@ line_color = Color( 0.0627451, 0.921569, 0.458824, 1 )
 size_id = 0
 
 [node name="Loading" parent="." instance=ExtResource( 5 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 2.0
@@ -172,3 +229,5 @@ margin_right = 1022.0
 margin_bottom = 598.0
 [connection signal="pressed" from="HSplitContainer/TabContainer/Tabs/VBoxContainer/HBoxContainer/An_Punto" to="." method="_on_Punto_pressed"]
 [connection signal="pressed" from="HSplitContainer/TabContainer/Tabs/VBoxContainer/HBoxContainer/EnRoutar" to="." method="_on_EnRoutar_pressed"]
+[connection signal="pressed" from="HSplitContainer/VBoxContainer/VBoxContainer/HBoxContainer/zoomin" to="." method="_on_zoomin_pressed"]
+[connection signal="pressed" from="HSplitContainer/VBoxContainer/VBoxContainer/HBoxContainer/zoomout" to="." method="_on_zoomout_pressed"]

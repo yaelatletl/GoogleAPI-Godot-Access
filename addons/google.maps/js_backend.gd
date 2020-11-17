@@ -3,6 +3,8 @@ class_name JsLocations
 signal location_found(where)
 
 func get_user_position() -> Vector2:
+	if not OS.has_feature('JavaScript'):
+		return Vector2.ZERO
 	var init = JavaScript.eval("""
 	var Lat = 0; var Lon = 0;
 	function showPosition(position) {  
