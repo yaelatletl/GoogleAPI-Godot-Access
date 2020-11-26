@@ -1,6 +1,7 @@
 extends Node
 class_name GoogleMapsStaticAPI
-
+"""Implementation of the Static API from Google Maps
+"""
 const sizes = [ 
 	"1024x1024",
 	"512x512",
@@ -98,11 +99,16 @@ func make_request():
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 
-func request_directions(from, to):
+func request_directions():
 	var base = "https://maps.googleapis.com/maps/api/directions/json?origin="
-	base = base + name_to_API(from)
-	base = base + "&destination=" + name_to_API(to)
-	base = base + "mode=driving&key=" + API_KEY
+	base = base + name_to_API(route_points.front())
+	base = base + "&destination=" + name_to_API(route_points.back())
+	if route_points.size() > 2:
+		base = base + "&waypoints="
+		for point_id in range(1, route_points.size()-1):
+			base = base + name_to_API(route_points[point_id]) + "|"
+		base = base.trim_suffix("|")
+	base = base + "&mode=driving&key=" + API_KEY
 	var error = dircs.request(base)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
@@ -112,5 +118,4 @@ func _on_location_found(where : Vector2):
 	make_request()
 	emit_signal("center_loaded")
 
-func _on_EnRoutar_pressed():
-	request_directions(route_points.front(), route_points.back())
+

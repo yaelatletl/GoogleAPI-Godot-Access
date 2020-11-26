@@ -31,6 +31,10 @@ run/main_scene="res://interface/Main.tscn"
 run/low_processor_mode=true
 config/icon="res://assets/icon.png"
 
+[debug]
+
+settings/fps/force_fps=30
+
 [editor_plugins]
 
 enabled=PoolStringArray( "calendar_button" )
@@ -46,4 +50,6 @@ quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
+quality/depth_prepass/enable=false
+quality/depth/hdr=false
 environment/default_environment="res://default_env.tres"

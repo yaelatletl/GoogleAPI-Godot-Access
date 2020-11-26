@@ -63,7 +63,7 @@ func _on_texture_updated(texture : ImageTexture):
 			get_node("Loading").add_progress(50)
 
 func _on_EnRoutar_pressed():
-	static_api.request_directions(static_api.route_points.front(), static_api.route_points.back())
+	static_api.request_directions()
 
 func _on_item_del_pressed(node):
 	node.queue_free()
