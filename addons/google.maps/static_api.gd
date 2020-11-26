@@ -99,6 +99,9 @@ func make_request():
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 
+func remove(value):
+	route_points.erase(value)
+
 func request_directions():
 	var base = "https://maps.googleapis.com/maps/api/directions/json?origin="
 	base = base + name_to_API(route_points.front())

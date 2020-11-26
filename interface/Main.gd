@@ -41,6 +41,7 @@ func create_item(point_info):
 	cli_label.text = "Destinatario: " + point_info.get("cliente")
 	cant_label.text = "Cantidad: " + str(point_info.get("cantidad"))
 	static_api.route_points.append(point_info.get("direccion"))
+	panel.set_meta("direccion", dir_label)
 	panel.add_child(box)
 	box.add_child(texx)
 	box.add_child(box2)
@@ -67,7 +68,7 @@ func _on_EnRoutar_pressed():
 	static_api.request_directions()
 
 func _on_item_del_pressed(node):
-	static_api.find(node.get_node("Dir").text)
+	static_api.remove(node.get_meta("direccion").text) 
 	node.queue_free()
 
 

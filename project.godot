@@ -28,7 +28,6 @@ _global_script_class_icons={
 
 config/name="MapRouter"
 run/main_scene="res://interface/Main.tscn"
-run/low_processor_mode=true
 config/icon="res://assets/icon.png"
 
 [debug]
