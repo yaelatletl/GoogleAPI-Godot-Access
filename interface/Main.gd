@@ -37,6 +37,7 @@ func create_item(point_info):
 	del.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	del.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	dir_label.text = point_info.get("direccion")
+	dir_label.name = "Dir"
 	cli_label.text = "Destinatario: " + point_info.get("cliente")
 	cant_label.text = "Cantidad: " + str(point_info.get("cantidad"))
 	static_api.route_points.append(point_info.get("direccion"))
@@ -66,6 +67,7 @@ func _on_EnRoutar_pressed():
 	static_api.request_directions()
 
 func _on_item_del_pressed(node):
+	static_api.find(node.get_node("Dir").text)
 	node.queue_free()
 
 

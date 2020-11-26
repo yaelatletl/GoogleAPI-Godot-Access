@@ -12,6 +12,9 @@ signal request_new_point(point_info)
 var point_info : Dictionary = {}
 
 func _on_ConfirmationDialog_confirmed() -> void:
+	if $HBoxContainer2/Valores/Direccion.text == \"\":
+		$AcceptDialog.popup_centered()
+		return
 	point_info[\"direccion\"] = $HBoxContainer2/Valores/Direccion.text
 	point_info[\"cliente\"] = $HBoxContainer2/Valores/Cliente.text
 	point_info[\"cantidad\"] = $HBoxContainer2/Valores/Cantidad.value
@@ -29,6 +32,7 @@ func clear():
 "
 
 [node name="ConfirmationDialog" type="ConfirmationDialog"]
+visible = true
 margin_left = 4.0
 margin_top = 19.0
 margin_right = 459.0
@@ -193,5 +197,16 @@ texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 2 )
 script = ExtResource( 1 )
 language = "Spanish"
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+visible = true
+margin_right = 239.0
+margin_bottom = 75.0
+window_title = "¡Alerta!"
+dialog_text = "No ha seleccionado una dirección, 
+no se puede procesar su solicitud"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="confirmed" from="." to="." method="_on_ConfirmationDialog_confirmed"]
 [connection signal="popup_hide" from="." to="." method="_on_ConfirmationDialog_popup_hide"]
